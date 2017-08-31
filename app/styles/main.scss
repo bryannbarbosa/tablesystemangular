@@ -1,0 +1,40 @@
+$icon-font-path: "../bower_components/bootstrap-sass-official/assets/fonts/bootstrap/"; // bower:scss
+ @import "bootstrap-sass-official/assets/stylesheets/_bootstrap.scss";
+ // endbower
+
+body {
+  padding: 0;
+  font-family: 'Nunito Sans', sans-serif;
+}
+/* Everything but the jumbotron gets side spacing for mobile first views */
+.footer,
+.header,
+.marketing {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+/* Custom page header */
+.header {
+  border-bottom: 1px solid #e5e5e5;
+  margin-bottom: 10px;
+  /* Supporting marketing content */
+  .marketing {
+    margin: 40px 0;
+
+    p + h4 {
+      margin-top: 28px;
+    }
+  }
+}
+
+.form-control:focus {
+  box-shadow: none;
+}
+
+.list-group {
+  margin-bottom: 0px;
+}
+
+.inline {
+  display: inline-block;
+}

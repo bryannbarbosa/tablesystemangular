@@ -1,0 +1,85 @@
+<div class="row" style="margin-top: 5em">
+  <h3 class="text-center" style="margin-top: 5em;">Inserir Faixa Etária</h3>
+  <div class="col-sm-2 col-sm-offset-4">
+    <div class="form-group">
+      <input type="number" ng-model="age.initial" class="form-control" min="1" placeholder="Idade Inicial" required />
+    </div>
+  </div>
+  <div class="col-sm-2">
+    <div class="form-group">
+      <input type="number" ng-model="age.final" class="form-control" min="1" placeholder="Idade Final" required />
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4">
+    <div class="text-center form-group">
+      <button class="btn btn-primary btn-block" ng-click="insertAge(age)" ng-disabled="!age.initial || !age.final"><b>Inserir Faixa Etária</b></button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4">
+    <div class="text-center form-group">
+      <button class="btn btn-success btn-block" ng-init="enableEdit = false" ng-click="enableEdit = !enableEdit"><b>{{ enableEdit == false ? 'Habilitar Edição' : 'Desabilitar Edição' }}</b></button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4">
+    <table class="table table-hover text-center" ng-repeat="object in ages">
+      <thead>
+        <tr>
+          <th class="text-center">
+            Idade Inicial
+          </th>
+          <th class="text-center">
+            Idade Final
+          </th>
+          <th ng-if="enableEdit">
+            Remoção
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="age in object">
+          <td ng-if="!enableEdit" class="text-center">{{ age.age_initial }}</td>
+          <td ng-if="!enableEdit" class="text-center">{{ age.age_final }}</td>
+          <td ng-if="enableEdit" class="text-center">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="age.age_initial" />
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                 <span class="caret"></span>
+                 <span class="sr-only">Toggle Dropdown</span>
+              </button>
+                <ul class="dropdown-menu">
+                  <li><a href="" ng-click="updateAge(age.id, age.age_initial, age.age_final)">Salvar Alterações</a></li>
+                </ul>
+              </div>
+            </div>
+
+          </td>
+          <td ng-if="enableEdit" class="text-center">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="age.age_final" />
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                 <span class="caret"></span>
+                 <span class="sr-only">Toggle Dropdown</span>
+              </button>
+                <ul class="dropdown-menu">
+                  <li><a href="" ng-click="updateAge(age.id, age.age_initial, age.age_final)">Salvar Alterações</a></li>
+                </ul>
+              </div>
+            </div>
+
+          </td>
+          <td ng-if="enableEdit">
+            <button class="btn btn-danger btn-block" ng-click="deleteAge(age.id)">Remover</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

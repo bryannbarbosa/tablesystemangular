@@ -1,0 +1,60 @@
+<div class="row" style="margin-top: 6em;">
+  <div class="col-sm-12">
+    <div ng-repeat="object in tables">
+      <div ng-repeat="table in object" ng-init="tableIndex = $index; table.enableEdit = false">
+        <div class="text-center">
+          <h3>{{ table.agreement_name }} {{ table.open_agreement == false ? '(Fechada)' : '(Aberta)' }}</h3>
+          <img class="img-responsive inline" width="350" ng-src="{{ table.agreement_image_url }}" />
+        </div>
+        <table class="table table-hover text-center">
+          <thead>
+            <tr ng-repeat="tr in table.thead_tr">
+              <th ng-if="!table.enableEdit" class="text-center" ng-repeat="th in tr.ths">{{ th.th_value }}</th>
+              <th ng-if="table.enableEdit" class="text-center" ng-repeat="th in tr.ths">
+                <input type="text" class="form-control" ng-model="th.th_value" readonly />
+              </th>
+              <th ng-if="table.enableEdit">
+                <input type="text" class="form-control" style="background-color: #5bc0de; color: white; border: 0;" value="Opções" readonly />
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="tr in table.tbody_tr">
+              <td ng-if="!table.enableEdit" class="text-center" ng-repeat="td in tr.tds">{{ td.td_value }}</td>
+              <td ng-if="table.enableEdit" class="text-center" ng-repeat="td in tr.tds">
+                <input type="text" class="form-control" ng-model="td.td_value" readonly />
+              </td>
+              <td ng-if="table.enableEdit && tr.id_age == null" ng-repeat="object in ages">
+                <div class="dropdown">
+                  <button class="btn btn-info btn-block dropdown-toggle" type="button" data-toggle="dropdown"><b>Selecionar Linha</b>
+                  </button>
+                  <ul class="dropdown-menu">
+                    <li class="dropdown-header">Selecione a faixa etária</li>
+                    <li ng-repeat="age in object">
+                      <a href="" ng-click="insertRelation(age.id, tr.id)">De {{ age.age_initial }} até {{ age.age_final }} anos</a>
+                    </li>
+                  </ul>
+                </div>
+              </td>
+              <td ng-if="table.enableEdit && tr.id_age != null" ng-repeat="object in ages">
+                <button class="btn btn-danger btn-block dropdown-toggle" ng-click="deleteRelation(tr.id_age, tr.id)" type="button"><b>Remover Seleção</b></button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-sm-4 text-center col-sm-offset-4">
+            <div class="row" style="margin-top:15px;">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <button class="btn btn-success btn-block" ng-click="table.enableEdit = !table.enableEdit"><b>{{ table.enableEdit == false ? 'Habilitar Edição' : 'Desabilitar Edição' }}</b></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+      </div>
+    </div>
+  </div>
+</div>

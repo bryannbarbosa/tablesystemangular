@@ -1,0 +1,47 @@
+<div class="row" style="margin-top: 10em">
+  <div class="col-sm-4 col-sm-offset-4">
+    <div class="text-center">
+      <h3>Inserir Profissão</h3>
+    </div>
+    <div class="form-group">
+      <input type="text" class="form-control" ng-model="profession.profession_name" placeholder="Nome da profissão" />
+    </div>
+    <div class="form-group">
+      <button class="btn btn-primary btn-block" ng-disabled="!profession.profession_name" ng-click="insertProfession(profession)"><b>Inserir Profissão</b></button>
+    </div>
+    <div class="form-group">
+      <button class="btn btn-success btn-block" ng-init="enableEdit = false" ng-click="enableEdit = !enableEdit"><b>{{ enableEdit == false ? 'Habilitar Edição' : 'Desabilitar Edição' }}</b></button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4">
+    <table class="table table-hover text-center" ng-repeat="object in professions">
+      <thead>
+        <tr>
+          <th class="text-center">Nome da profissão</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="profession in object">
+          <td ng-if="!enableEdit" class="text-capitalize">{{ profession.profession_name }}</td>
+          <td ng-if="enableEdit">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="profession.profession_name" />
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                 <span class="caret"></span>
+                 <span class="sr-only">Toggle Dropdown</span>
+              </button>
+                <ul class="dropdown-menu">
+                  <li><a href="" ng-click="updateProfession(profession.id, profession.profession_name)">Salvar Alterações</a></li>
+                  <li><a href="" ng-click="deleteProfession(profession.id)">Remover Profissão</a></li>
+                </ul>
+              </div>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

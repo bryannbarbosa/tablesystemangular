@@ -1,0 +1,40 @@
+<div class="row" style="margin-top: 10em">
+  <div class="col-sm-4 col-sm-offset-4">
+    <div class="text-center">
+      <h3>Relacionar Profissões</h3>
+    </div>
+    <div class="form-group" ng-repeat="object in tables">
+      <select class="form-control" ng-model="data.id_agreement" ng-options="table.id as table.agreement_name for table in object">
+        <option value="">Selecione uma tabela</option>
+      </select>
+    </div>
+    <div class="form-group" ng-repeat="object in professions">
+      <select class="form-control text-capitalize" ng-model="data.id_profession" ng-options="profession.id as profession.profession_name for profession in object">
+        <option value="">profissão</option>
+      </select>
+    </div>
+    <div class="form-group" ng-repeat="object in professions">
+      <button class="btn btn-primary btn-block" ng-disabled="!data.id_profession || !data.id_agreement" ng-click="insertRelation(data)"><b>Relacionar</b></button>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <table class="table table-hover text-center" ng-repeat="object in relations">
+      <thead>
+        <tr>
+          <th class="text-center">Tabela</th>
+          <th class="text-center">Profissão</th>
+          <th class="text-center">Remoção</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="relation in object">
+          <td class="text-capitalize">{{ relation.agreement_name }}</td>
+          <td class="text-capitalize">{{ relation.profession_name }}</td>
+          <td class="text-capitalize"><button class="btn btn-danger" ng-click="deleteRelation(relation.id_agreement, relation.id_profession)"><b>Remover</b></button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

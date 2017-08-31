@@ -1,0 +1,97 @@
+<div class="row">
+  <div class="col-sm-4 col-sm-offset-4">
+    <h3 class="text-center" style="margin-top: 5em;">Inserir Tabela</h3>
+    <form name="informations">
+      <div class="form-group">
+        <input type="text" class="form-control" ng-model="agreement.agreement_name" placeholder="Nome da tabela" required />
+      </div>
+      <div class="form-group">
+        <input type="text" class="form-control" ng-disabled="!agreement.agreement_name" ng-model="agreement.agreement_image_url" placeholder="URL da logotipo" required />
+      </div>
+      <div class="form-group">
+        <select class="form-control" ng-model="agreement.open_agreement" ng-disabled="!agreement.agreement_image_url || !agreement.agreement_name" ng-valid="validation()" required>
+        <option disabled selected value="">Selecione o tipo de tabela</option>
+        <option value="true">Aberta</option>
+        <option value="false">Fechada</option>
+      </select>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary btn-block" ng-disabled="!informations.$valid" ng-click="insertTheadTr()"><b>Adicionar Estrutura de Coluna</b></button>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-info btn-block" ng-disabled="!informations.$valid" ng-click="insertTbodyTr()"><b>Adicionar Estrutura de Linha</b></button>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-success btn-block" ng-init="enableEdit = false" ng-disabled="!informations.$valid || !agreement.thead_tr.length" ng-click="enableEdit = !enableEdit"><b>{{ enableEdit == false ? 'Habilitar Edição' : 'Desabilitar Edição' }}</b></button>
+      </div>
+      <!-- <div class="form-group">
+        <button class="btn btn-default btn-block" ng-click="showInfo(agreement)">Mostrar informações</button>
+      </div> -->
+    </form>
+  </div>
+</div>
+<div class="row">
+  <div class="form-group">
+    <div class="list-group">
+      <div class="col-md-4 col-md-offset-4 text-center">
+        <a href="" ng-repeat="tr in agreement.thead_tr" ng-click="insertHeadTh($index)" class="list-group-item">Adicionar Coluna (Estrutura {{ ($index + 1) }})</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" style="margin-top: 15px">
+  <div class="form-group">
+  <div class="list-group">
+    <div class="col-md-4 col-md-offset-4 text-center">
+      <a href="" ng-repeat="tr in agreement.tbody_tr" ng-click="insertBodyTd($index)" class="list-group-item">Adicionar Campo (Linha {{ ($index + 1) }})</a>
+    </div>
+  </div>
+</div>
+</div>
+<div class="row" style="margin-top: 15px;">
+  <div class="col-sm-12">
+    <table class="table table-hover text-center">
+      <thead>
+        <tr ng-repeat="tr in agreement.thead_tr" ng-init="trHeadIndex = $index">
+          <th ng-if="enableEdit" ng-repeat="th in tr.ths" class="text-center">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="th.th_value" />
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                 <span class="caret"></span>
+                 <span class="sr-only">Toggle Dropdown</span>
+              </button>
+                <ul class="dropdown-menu">
+                  <li><a href="" ng-click="deleteTh(trHeadIndex, $index)">Remover Coluna</a></li>
+                </ul>
+              </div>
+            </div>
+          </th>
+          <th ng-if="!enableEdit" ng-repeat="th in tr.ths" class="text-center">{{ th.th_value }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="tr in agreement.tbody_tr">
+          <td ng-if="enableEdit" ng-repeat="td in tr.tds" class="text-center"  ng-init="trBodyIndex = $index">
+            <div class="input-group">
+              <input type="text" class="form-control" ng-model="td.td_value" />
+              <div class="input-group-btn">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                 <span class="caret"></span>
+                 <span class="sr-only">Toggle Dropdown</span>
+              </button>
+                <ul class="dropdown-menu">
+                  <li><a href="" ng-click="deleteTd(trBodyIndex, $index)">Remover Campo</a></li>
+                </ul>
+              </div>
+            </div>
+          </td>
+          <td ng-if="!enableEdit" ng-repeat="td in tr.tds" class="text-center">{{ td.td_value }}</td>
+        </tr>
+      </tbody>
+    </table>
+    <div ng-if="agreement.thead_tr.length > 0 || agreement.tbody_tr.length > 0" class="form-group text-center">
+      <button class="btn btn-primary" ng-click="insertTable(agreement)">Inserir Tabela</button>
+    </div>
+  </div>
+</div>

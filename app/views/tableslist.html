@@ -1,0 +1,90 @@
+<div class="row" style="margin-top: 5em;">
+  <div class="col-sm-12">
+    <div ng-repeat="object in tables">
+      <div ng-repeat="table in object" ng-init="tableIndex = $index; table.enableEdit = false">
+        <div class="text-center">
+          <h3>{{ table.agreement_name }} {{ table.open_agreement == false ? '(Fechada)' : '(Aberta)' }}</h3>
+          <img class="img-responsive inline" width="350" ng-src="{{ table.agreement_image_url }}" />
+        </div>
+        <table class="table table-hover text-center">
+          <thead>
+            <tr ng-repeat="tr in table.thead_tr">
+              <th ng-if="!table.enableEdit" class="text-center" ng-repeat="th in tr.ths">{{ th.th_value }}</th>
+              <th ng-if="table.enableEdit" class="text-center" ng-repeat="th in tr.ths">
+                <div class="input-group">
+                  <input type="text" class="form-control" ng-model="th.th_value" />
+                  <div class="input-group-btn">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                     <span class="caret"></span>
+                     <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                    <ul class="dropdown-menu">
+                      <li><a href="" ng-click="updateTh(th.id, th.th_value)">Salvar Alterações</a></li>
+                      <li><a href="" ng-click="deleteTh(th.id)">Remover Coluna</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="tr in table.tbody_tr">
+              <td ng-if="!table.enableEdit" class="text-center" ng-repeat="td in tr.tds">{{ td.td_value }}</td>
+              <td ng-if="table.enableEdit" class="text-center" ng-repeat="td in tr.tds">
+                <div class="input-group">
+                  <input type="text" class="form-control" ng-model="td.td_value" />
+                  <div class="input-group-btn">
+                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                     <span class="caret"></span>
+                     <span class="sr-only">Toggle Dropdown</span>
+                  </button>
+                    <ul class="dropdown-menu">
+                      <li><a href="" ng-click="updateTd(td.id, td.td_value)">Salvar Alterações</a></li>
+                      <li><a href="" ng-click="deleteTd(td.id)">Remover Campo</a></li>
+                    </ul>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="row">
+          <div class="col-sm-4 text-center col-sm-offset-4">
+            <div class="row">
+              <div class="form-group">
+                <div class="list-group">
+                  <div class="col-sm-12 text-center">
+                    <a href="" ng-repeat="tr in table.thead_tr" ng-click="insertHeadTh(tr.id, tableIndex, $index)" class="list-group-item">Adicionar Coluna (Estrutura {{ ($index + 1) }})</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 15px">
+              <div class="form-group">
+                <div class="list-group">
+                  <div class="col-sm-12 text-center">
+                    <a href="" ng-repeat="tr in table.tbody_tr" ng-click="insertBodyTd(tr.id, tableIndex, $index)" class="list-group-item">Adicionar Campo (Linha {{ ($index + 1) }})</a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top:15px;">
+              <div class="col-sm-12">
+                <div class="form-group">
+                  <button class="btn btn-success btn-block" ng-click="table.enableEdit = !table.enableEdit"><b>{{ table.enableEdit == false ? 'Habilitar Edição' : 'Desabilitar Edição' }}</b></button>
+                </div>
+                <div class="form-group">
+                  <button class="btn btn-danger btn-block" ng-click="deleteTable(table.id)"><b>Remover Tabela</b></button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <hr />
+      </div>
+    </div>
+    <p ng-if="tables.length == 0">
+      Não há tabelas disponíveis
+    </p>
+  </div>
+</div>
