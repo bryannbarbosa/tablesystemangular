@@ -9,12 +9,19 @@
  */
 angular.module('amazonasApp')
   .factory('agreementAPI', function ($resource) {
+    var BaseUrl = 'http://amazonasseguros.com.br/system/public/api/';
     return {
       connect: function (params) {
-        let BaseUrl = 'http://localhost:8000/public/api/';
         return $resource(BaseUrl + params, null, {
           'update': {
             method: 'PUT'
+          }
+        });
+      },
+      authentication: function () {
+        return $resource(BaseUrl + 'signin', null, {
+          'run': {
+            method: 'POST'
           }
         });
       }

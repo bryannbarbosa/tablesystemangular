@@ -1,0 +1,22 @@
+<div class="row" style="margin-top: 12em">
+  <div class="col-sm-4 col-sm-offset-4">
+    <h3 class="text-center">Área de usuário</h3>
+    <form name="authentication">
+      <div class="form-group">
+        <input type="email" class="form-control" ng-model="user.email" placeholder="Seu e-mail" required />
+      </div>
+      <div class="form-group">
+        <input type="password" class="form-control" ng-model="user.password" placeholder="Seu senha" required />
+      </div>
+    </form>
+    <div class="form-group">
+      <button class="btn btn-primary btn-block" ng-click="authenticate(user)" ng-disabled="!authentication.$valid"><b>Entrar</b></button>
+    </div>
+    <div ng-if="enableError" class="alert alert-danger">
+      Acesso não permitido, e-mail ou senha inválidos
+    </div>
+    <div ng-if="enableSuccess" class="alert alert-success">
+      Autenticação realizada com sucesso
+    </div>
+  </div>
+</div>

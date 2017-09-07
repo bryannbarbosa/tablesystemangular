@@ -57,7 +57,7 @@
             <div class="input-group">
               <input type="text" class="form-control" ng-model="th.th_value" />
               <div class="input-group-btn">
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                  <span class="caret"></span>
                  <span class="sr-only">Toggle Dropdown</span>
               </button>
@@ -71,12 +71,12 @@
         </tr>
       </thead>
       <tbody>
-        <tr ng-repeat="tr in agreement.tbody_tr">
-          <td ng-if="enableEdit" ng-repeat="td in tr.tds" class="text-center"  ng-init="trBodyIndex = $index">
+        <tr ng-repeat="tr in agreement.tbody_tr" ng-init="trBodyIndex = $index">
+          <td ng-if="enableEdit" ng-repeat="td in tr.tds" class="text-center">
             <div class="input-group">
               <input type="text" class="form-control" ng-model="td.td_value" />
               <div class="input-group-btn">
-                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" tabindex="-1">
+                <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown">
                  <span class="caret"></span>
                  <span class="sr-only">Toggle Dropdown</span>
               </button>
